@@ -13,7 +13,7 @@ const Categories = () => {
           key={item.label}
           label={item.label}
           icon={item.icon}
-          selected={category}
+          selected={category === item.label}
         />
       ))}
     </div>

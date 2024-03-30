@@ -1,27 +1,10 @@
-import { useNavigate, useSearchParams } from "react-router-dom";
-import qs from "query-string";
-
 // eslint-disable-next-line react/prop-types
 const CategoryBox = ({ label, icon: Icon, selected }) => {
-  const [params, setParams] = useSearchParams();
-  const navigate = useNavigate();
-  const handleParams = () => {
-    let currentQuery = {};
-    if (params) {
-      currentQuery = qs.parse(params.toString());
-      const updatedQuery = { ...currentQuery, category: label };
-      const url = qs.stringifyUrl({
-        url: "/",
-        query: updatedQuery,
-      });
-      navigate(url);
-    }
-  };
   return (
     <div
       onClick={handleParams}
       className={`${
-        selected === label
+        selected
           ? "text-neutral-800 border-b-neutral-800"
           : "border-b-transparent text-neutral-500"
       } flex flex-col justify-center items-center gap-2 p-3 border-b-2 hover:text-neutral-600 transition cursor-pointer`}
