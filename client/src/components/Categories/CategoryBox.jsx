@@ -10,13 +10,13 @@ const CategoryBox = ({ label, icon: Icon, selected }) => {
 
     if (params) {
       currentQueries = qs.parse(params.toString());
-      const updatedQuery = [...currentQueries, label];
-      const url = qs.stringifyUrl({
-        url: "/",
-        query: updatedQuery,
-      });
-      navigate(url);
     }
+    const updatedQuery = { ...currentQueries, category: label };
+    const url = qs.stringifyUrl({
+      url: "/",
+      query: updatedQuery,
+    });
+    navigate(url);
   };
   return (
     <div
