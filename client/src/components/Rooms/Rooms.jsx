@@ -3,13 +3,16 @@ import Card from "../Card/Card";
 import { useSearchParams } from "react-router-dom";
 import Container from "../Shared/Container";
 import Heading from "../Shared/Heading";
+import Loader from "../Loader/Loader";
 
 const Rooms = () => {
   const [rooms, setRooms] = useState([]);
   const [params, setParams] = useSearchParams();
   const category = params.get("category");
+  const [loader, setLoader] = useState(false);
 
   useEffect(() => {
+    setLoader(true);
     fetch("./rooms.json")
       .then((res) => res.json())
       .then((data) => {
@@ -19,8 +22,10 @@ const Rooms = () => {
         } else {
           setRooms(data);
         }
+        setLoader(false);
       });
   }, [category]);
+  if (loader) return <Loader />;
 
   return (
     <div className="flex justify-center items-center min-h-[calc(100vh-300px)]">
