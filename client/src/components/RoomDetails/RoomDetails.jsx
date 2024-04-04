@@ -5,6 +5,7 @@ import { useEffect, useState } from "react";
 import Loader from "../Loader/Loader";
 import { Helmet } from "react-helmet-async";
 import Header from "./Header/Header";
+import RoomInfo from "./RoomInfo/RoomInfo";
 
 const RoomDetails = () => {
   const { id } = useParams();
@@ -31,9 +32,11 @@ const RoomDetails = () => {
       <div className="">
         <div className="flex flex-col gap-6">
           {/* Header */}
-          <Header key={room?._id} room={room} />
+          <Header room={room} />
         </div>
-        <div className="">{/* Room Info */}</div>
+        <div className="">
+          <RoomInfo room={room} />
+        </div>
       </div>
     </Container>
   );
