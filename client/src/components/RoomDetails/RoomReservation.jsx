@@ -1,9 +1,9 @@
 /* eslint-disable react/prop-types */
-// import { formatDistance } from 'date-fns'
+
 import Button from "../Button/Button";
 import Calender from "./Calender";
-// import { useState } from 'react'
 
+// eslint-disable-next-line no-unused-vars
 const RoomReservation = ({ room }) => {
   //   const [value, setValue] = useState({
   //     startDate: new Date(room?.from),
@@ -35,6 +35,7 @@ const RoomReservation = ({ room }) => {
         <Button label={"Reserve"} />
       </div>
       <hr />
+
       <div className="p-4 flex items-center justify-between font-semibold text-lg">
         <div>Total</div>
         <div>$ {room?.price}</div>

@@ -6,7 +6,7 @@ import Loader from "../Loader/Loader";
 import { Helmet } from "react-helmet-async";
 import Header from "./Header";
 import RoomInfo from "./RoomInfo";
-import Calender from "./Calender";
+import RoomReservation from "./RoomReservation";
 
 const RoomDetails = () => {
   const { id } = useParams();
@@ -30,15 +30,15 @@ const RoomDetails = () => {
       <Helmet>
         <title>{room?.title}</title>
       </Helmet>
-      <div className="max-w-screen-xl mx-auto">
+      <div className="max-w-screen-2xl mx-auto">
         <div className="flex flex-col gap-6">
           {/* Header */}
           <Header room={room} />
         </div>
         <div className="grid grid-cols-1 md:grid-cols-7 md:gap-10 mt-6">
           <RoomInfo room={room} />
-          <div className="md:col-span-3 order-first md:order-last">
-            <Calender />
+          <div className="col-span-3 order-first md:order-last">
+            <RoomReservation room={room} />
           </div>
         </div>
       </div>
