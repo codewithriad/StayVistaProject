@@ -4,6 +4,7 @@ import Container from "../Shared/Container";
 import { useEffect, useState } from "react";
 import Loader from "../Loader/Loader";
 import { Helmet } from "react-helmet-async";
+import Header from "./Header/Header";
 
 const RoomDetails = () => {
   const { id } = useParams();
@@ -27,8 +28,13 @@ const RoomDetails = () => {
       <Helmet>
         <title>{room?.title}</title>
       </Helmet>
-      <h1 className="font-bold text-xl">{room?.title}</h1>
-      <img className="rounded-md" src={room?.image} alt="room_image" />
+      <div className="">
+        <div className="flex flex-col gap-6">
+          {/* Header */}
+          <Header key={room?._id} room={room} />
+        </div>
+        <div className="">{/* Room Info */}</div>
+      </div>
     </Container>
   );
 };

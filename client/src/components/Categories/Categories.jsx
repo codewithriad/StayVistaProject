@@ -1,6 +1,6 @@
 import { useSearchParams } from "react-router-dom";
-import { categories } from "./CategoriesDetails";
 import CategoryBox from "./CategoryBox";
+import { categories } from "./CategoriesDetails";
 
 const Categories = () => {
   const [params, setParams] = useSearchParams();
