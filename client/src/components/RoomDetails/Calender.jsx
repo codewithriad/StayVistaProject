@@ -1,8 +1,8 @@
 /* eslint-disable react/prop-types */
-import { Calendar } from "react-date-range";
+import { DateRange } from "react-date-range";
 
 const Calender = () => {
-  return <Calendar />;
+  return <DateRange />;
 };
 
 export default Calender;
