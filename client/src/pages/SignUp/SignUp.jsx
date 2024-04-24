@@ -1,8 +1,12 @@
+/* eslint-disable no-unused-vars */
 import { Link } from "react-router-dom";
 import { FcGoogle } from "react-icons/fc";
 import { imageUpload } from "../../api/utils";
+import useAuth from "../../hooks/useAuth";
 
 const SignUp = () => {
+  const { GoogleAuthProvider, createUserWithEmailAndPassword, updateProfile } =
+    useAuth();
   const handleSubmit = async (e) => {
     e.preventDefault();
     const form = e.target;
@@ -11,8 +15,6 @@ const SignUp = () => {
     const password = form.password.value;
     const image = form.image.files[0];
     const imageData = await imageUpload(image);
-    console.log(imageData);
-    console.log(name, email, password);
   };
   return (
     <div className="flex justify-center items-center min-h-screen">
