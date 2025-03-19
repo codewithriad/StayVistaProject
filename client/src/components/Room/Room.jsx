@@ -14,6 +14,7 @@ const Rooms = () => {
   const [loader, setLoader] = useState(false);
 
   useEffect(() => {
+    setLoader(true);
     fetch("/rooms.json")
       .then((res) => res.json())
       .then((data) => {
