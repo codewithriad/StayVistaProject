@@ -48,55 +48,55 @@ const client = new MongoClient(process.env.DB_URI, {
 async function run() {
   try {
     // auth related api
-    app.post("/jwt", async (req, res) => {
-      const user = req.body;
-      console.log("I need a new jwt", user);
-      const token = jwt.sign(user, process.env.ACCESS_TOKEN_SECRET, {
-        expiresIn: "365d",
-      });
-      res
-        .cookie("token", token, {
-          httpOnly: true,
-          secure: process.env.NODE_ENV === "production",
-          sameSite: process.env.NODE_ENV === "production" ? "none" : "strict",
-        })
-        .send({ success: true });
-    });
+    // app.post("/jwt", async (req, res) => {
+    //   const user = req.body;
+    //   console.log("I need a new jwt", user);
+    //   const token = jwt.sign(user, process.env.ACCESS_TOKEN_SECRET, {
+    //     expiresIn: "365d",
+    //   });
+    //   res
+    //     .cookie("token", token, {
+    //       httpOnly: true,
+    //       secure: process.env.NODE_ENV === "production",
+    //       sameSite: process.env.NODE_ENV === "production" ? "none" : "strict",
+    //     })
+    //     .send({ success: true });
+    // });
 
     // Logout
-    app.get("/logout", async (req, res) => {
-      try {
-        res
-          .clearCookie("token", {
-            maxAge: 0,
-            secure: process.env.NODE_ENV === "production",
-            sameSite: process.env.NODE_ENV === "production" ? "none" : "strict",
-          })
-          .send({ success: true });
-        console.log("Logout successful");
-      } catch (err) {
-        res.status(500).send(err);
-      }
-    });
+    // app.get("/logout", async (req, res) => {
+    //   try {
+    //     res
+    //       .clearCookie("token", {
+    //         maxAge: 0,
+    //         secure: process.env.NODE_ENV === "production",
+    //         sameSite: process.env.NODE_ENV === "production" ? "none" : "strict",
+    //       })
+    //       .send({ success: true });
+    //     console.log("Logout successful");
+    //   } catch (err) {
+    //     res.status(500).send(err);
+    //   }
+    // });
 
     // Save or modify user email, status in DB
-    app.put("/users/:email", async (req, res) => {
-      const email = req.params.email;
-      const user = req.body;
-      const query = { email: email };
-      const options = { upsert: true };
-      const isExist = await usersCollection.findOne(query);
-      console.log("User found?----->", isExist);
-      if (isExist) return res.send(isExist);
-      const result = await usersCollection.updateOne(
-        query,
-        {
-          $set: { ...user, timestamp: Date.now() },
-        },
-        options
-      );
-      res.send(result);
-    });
+    // app.put("/users/:email", async (req, res) => {
+    //   const email = req.params.email;
+    //   const user = req.body;
+    //   const query = { email: email };
+    //   const options = { upsert: true };
+    //   const isExist = await usersCollection.findOne(query);
+    //   console.log("User found?----->", isExist);
+    //   if (isExist) return res.send(isExist);
+    //   const result = await usersCollection.updateOne(
+    //     query,
+    //     {
+    //       $set: { ...user, timestamp: Date.now() },
+    //     },
+    //     options
+    //   );
+    //   res.send(result);
+    // });
 
     // Send a ping to confirm a successful connection
     await client.db("admin").command({ ping: 1 });

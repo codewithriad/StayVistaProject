@@ -4,29 +4,29 @@
 import { useState } from "react";
 import Button from "../Button/Button";
 import Calender from "./Calender";
-import { formatDistance } from "date-fns";
 
 // eslint-disable-next-line no-unused-vars
 const RoomReservation = ({ room }) => {
-  // const [value, setValue] = useState({
-  //   startDate: new Date(room?.from),
-  //   endDate: new Date(room?.to),
-  //   key: "selection",
-  // });
+  const [value, setValue] = useState({
+    startDate: new Date(room?.from),
+    endDate: new Date(room?.to),
+    key: "selection",
+  });
 
-  // const handleSelect = (ranges) => {
-  //   setValue({ ...value });
-  // };
+  const handleSelect = (ranges) => {
+    setValue({ ...value });
+  };
 
   // Total Days Calculation
 
   // const totalDays = parseInt(
   //   formatDistance(new Date(room?.to), new Date(room?.from)).split(" ")[0]
   // );
+  const totalDays = 5;
 
   // Total Price
 
-  // const totalPrice = totalDays * room?.price;
+  const totalPrice = totalDays * room?.price;
 
   return (
     <div className="rounded-xl border-[1px] border-neutral-200 overflow-hidden bg-white">
@@ -46,7 +46,7 @@ const RoomReservation = ({ room }) => {
 
       <div className="p-4 flex items-center justify-between font-semibold text-2xl">
         <div>Total</div>
-        {/* <div>$ {totalPrice}</div> */}
+        <div>$ {totalPrice}</div>
       </div>
     </div>
   );

@@ -5,7 +5,7 @@ import Rooms from "../../components/Room/Room";
 const Home = () => {
   return (
     <div>
-      {/* React Healmet Asycnc */}
+      {/* React Helmet Async */}
       <Helmet>
         <title>StayVista | Vacation Homes & Condo Rentals</title>
       </Helmet>

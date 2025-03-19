@@ -1,7 +1,18 @@
-import { Link } from 'react-router-dom'
+import { useContext } from 'react'
 import { FcGoogle } from 'react-icons/fc'
+import { Link } from 'react-router-dom'
+import { AuthContext } from '../../providers/AuthProvider'
 
 const Login = () => {
+  const { signInWithGoogle } = useContext(AuthContext)
+  const handleGoogleLogin = async () => {
+    try {
+      const result = await signInWithGoogle();
+      console.log('User has been signed in!', result.user);
+    } catch (error) {
+      console.error('Error on login', error.message);
+    }
+  }
   return (
     <div className='flex justify-center items-center min-h-screen'>
       <div className='flex flex-col max-w-md p-6 rounded-md sm:p-10 bg-gray-100 text-gray-900'>
@@ -70,7 +81,7 @@ const Login = () => {
           </p>
           <div className='flex-1 h-px sm:w-16 dark:bg-gray-700'></div>
         </div>
-        <div className='flex justify-center items-center space-x-2 border m-3 p-2 border-gray-300 border-rounded cursor-pointer'>
+        <div className='flex justify-center items-center space-x-2 border m-3 p-2 border-gray-300 border-rounded cursor-pointer' onClick={handleGoogleLogin}>
           <FcGoogle size={32} />
 
           <p>Continue with Google</p>

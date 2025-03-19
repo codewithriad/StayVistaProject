@@ -1,9 +1,10 @@
+/* eslint-disable no-unused-vars */
 import { useEffect, useState } from "react";
-import Card from "./Card";
 import { useSearchParams } from "react-router-dom";
+import Loader from "../Loader/Loader";
 import Container from "../Shared/Container";
 import Heading from "../Shared/Heading";
-import Loader from "../Loader/Loader";
+import Card from "./Card";
 
 const Rooms = () => {
   const [rooms, setRooms] = useState([]);

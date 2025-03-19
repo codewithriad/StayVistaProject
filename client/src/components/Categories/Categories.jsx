@@ -1,10 +1,14 @@
+/* eslint-disable no-unused-vars */
 import { useSearchParams } from "react-router-dom";
-import CategoryBox from "./CategoryBox";
 import { categories } from "./CategoriesDetails";
+import CategoryBox from "./CategoryBox";
 
 const Categories = () => {
-  const [params, setParams] = useSearchParams();
-  const category = params.get("category");
+ const [params, setParams] = useSearchParams()
+ const category = params.get('category')
+
+
+
 
   return (
     <div className="flex items-center justify-between py-4 overflow-x-auto">

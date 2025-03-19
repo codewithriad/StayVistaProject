@@ -1,6 +1,7 @@
-import React from 'react'
-import Button from '../../components/Button/Button'
+/* eslint-disable react/prop-types */
+
 import { Link } from 'react-router-dom'
+import Button from '../../components/Button/Button'
 const EmptyState = ({ message, address, label }) => {
   return (
     <div className='h-screen gap-5 flex flex-col justify-center items-center pb-16 '>
