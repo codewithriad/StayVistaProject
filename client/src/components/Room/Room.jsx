@@ -1,4 +1,5 @@
 /* eslint-disable no-unused-vars */
+
 import { useEffect, useState } from "react";
 import { useSearchParams } from "react-router-dom";
 import Loader from "../Loader/Loader";
@@ -13,11 +14,11 @@ const Rooms = () => {
   const [loader, setLoader] = useState(false);
 
   useEffect(() => {
-    setLoader(true);
-    fetch("./rooms.json")
+    fetch("/rooms.json")
       .then((res) => res.json())
       .then((data) => {
         if (category) {
+          setLoader(true);
           const filtered = data.filter((room) => room.category === category);
           setRooms(filtered);
         } else {
@@ -25,9 +26,9 @@ const Rooms = () => {
         }
         setLoader(false);
       });
-  }, [category]);
+    }, [category]);
 
-  if (loader) return <Loader />;
+    if (loader) return <Loader />;
 
   return (
     <Container className="flex justify-center items-center min-h-[calc(100vh-300px)]">
