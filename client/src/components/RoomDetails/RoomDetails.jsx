@@ -1,9 +1,9 @@
 import { useParams } from "react-router-dom";
 
-import Container from "../Shared/Container";
 import { useEffect, useState } from "react";
-import Loader from "../Loader/Loader";
 import { Helmet } from "react-helmet-async";
+import Loader from "../Loader/Loader";
+import Container from "../Shared/Container";
 import Header from "./Header";
 import RoomInfo from "./RoomInfo";
 import RoomReservation from "./RoomReservation";
@@ -15,7 +15,7 @@ const RoomDetails = () => {
 
   useEffect(() => {
     setLoader(true);
-    fetch("/rooms.json")
+    fetch("https://raw.githubusercontent.com/codewithriad/StayVistaProject/refs/heads/main/client/public/rooms.json")
       .then((res) => res.json())
       .then((data) => {
         const singleRoom = data.find((room) => room._id === id);

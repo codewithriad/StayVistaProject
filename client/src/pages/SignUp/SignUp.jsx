@@ -1,48 +1,32 @@
 /* eslint-disable no-unused-vars */
-import { Link } from "react-router-dom";
+import { useState } from "react";
 import { FcGoogle } from "react-icons/fc";
-import { imageUpload } from "../../api/utils";
-import useAuth from "../../hooks/useAuth";
-import { toast } from "react-hot-toast";
 import { TbFidgetSpinner } from "react-icons/tb";
+import { Link } from "react-router-dom";
+import { imageUpload } from '../../api/utils';
+import img from '../../assets/images/placeholder.jpg';
+import useAuth from "../../hooks/useAuth";
 
 const SignUp = () => {
   const { createUser, updateUserProfile, loading } = useAuth();
+  const [imageData, setImageData] = useState({});
 
   // form submit handler
   const handleSubmit = async (event) => {
-    event.preventDefault();
-    const form = event.target;
-    const name = form.name.value;
-    const email = form.email.value;
-    const password = form.password.value;
-    const image = form.image.files[0];
-
-    try {
-      //1. Upload Image
-      const imageData = await imageUpload(image);
-
-      //2. User Registration
-      const result = await createUser(email, password);
-
-      //3. Save username & profile photo
-      await updateUserProfile(name, imageData?.data?.display_url);
-      console.log(result);
-
-      //4. save user data in database
-
-      // result.user.email
-
-      //5. get token
-
-      await toast.success("Signup Successfull...");
-    } catch (err) {
-      console.log(err);
-      toast.error(err?.message);
-    }
+   event.preventDefault();
+   const form = event.target;
+   const name = form.name.value;
+   const email = form.email.value;
+   const password = form.password.value;
+   const image = form.image.files[0];
+   const file = await imageUpload(image)
+  //  console.log({name, password,email});
+    setImageData(file)
   };
+    const imageUrl = imageData?.data?.display_url || img;
 
   // Handle Google Signin
+
 
   return (
     <div className="flex justify-center items-center min-h-screen">
@@ -73,7 +57,7 @@ const SignUp = () => {
             </div>
             <div>
               <label htmlFor="image" className="block mb-2 text-sm">
-                Select Image:
+                {imageData ? <img src={imageUrl} className="w-8" alt="upload_image"/> : "Select Image" }
               </label>
               <input
                 required
@@ -106,7 +90,7 @@ const SignUp = () => {
               <input
                 type="password"
                 name="password"
-                autoComplete="new-password"
+                // autoComplete="new-password"
                 id="password"
                 required
                 placeholder="*******"
