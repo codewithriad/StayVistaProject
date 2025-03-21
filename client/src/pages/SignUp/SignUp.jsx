@@ -19,9 +19,30 @@ const SignUp = () => {
    const email = form.email.value;
    const password = form.password.value;
    const image = form.image.files[0];
-   const file = await imageUpload(image)
-  //  console.log({name, password,email});
-    setImageData(file)
+
+
+
+   try {
+
+    // 1. upload image and set in state.
+    const file = await imageUpload(image);
+    setImageData(file);
+
+    // 2. create user with email and password
+    const result = await createUser(email, password);
+
+    // 3. update user 
+    await updateUserProfile(name, imageData?.data?.display_url);
+
+    console.log(result)
+
+
+   } catch (err) {
+    console.log(err)
+   }
+
+
+    
   };
     const imageUrl = imageData?.data?.display_url || img;
 
