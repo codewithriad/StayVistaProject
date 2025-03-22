@@ -3,6 +3,7 @@ import { useState } from "react";
 import { FcGoogle } from "react-icons/fc";
 import { TbFidgetSpinner } from "react-icons/tb";
 import { Link } from "react-router-dom";
+import { saveUser } from "../../api/auth";
 import { imageUpload } from '../../api/utils';
 import img from '../../assets/images/placeholder.jpg';
 import useAuth from "../../hooks/useAuth";
@@ -31,10 +32,16 @@ const SignUp = () => {
     // 2. create user with email and password
     const result = await createUser(email, password);
 
-    // 3. update user 
+    // 3. update user name and profile photo
     await updateUserProfile(name, imageData?.data?.display_url);
 
     console.log(result)
+
+
+    // 4. save user profile in database
+    const dbResponse = await saveUser(result.user);
+    console.log(dbResponse)
+
 
 
    } catch (err) {

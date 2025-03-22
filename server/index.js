@@ -3,7 +3,7 @@ const app = express();
 require("dotenv").config();
 const cors = require("cors");
 const cookieParser = require("cookie-parser");
-const { MongoClient, ServerApiVersion } = require("mongodb");
+const { MongoClient, ServerApiVersion, Db } = require("mongodb");
 const jwt = require("jsonwebtoken");
 const morgan = require("morgan");
 const port = process.env.PORT || 8000;
@@ -37,23 +37,47 @@ app.use(morgan("dev"));
 //   });
 // };
 
+
+
+
 const client = new MongoClient(process.env.DB_URI, {
   serverApi: {
     version: ServerApiVersion.v1,
     strict: true,
     deprecationErrors: true,
-  }
+  },
 });
 // testing for github
 async function run() {
   try {
+    const usersCollection = client.db('StayVistaProject').collection('stayVista');
     
+    app.put("/users/:email", async (req, res) => {
+      const email = req.body.email;
+      const user = req.body;
+      const query = { email: email };
+      const options = { upsert: true };
+      // const isExist = await client.db("StayVista").collection("users").findOne(query);
+      const isExist = await usersCollection.findOne(query);
+      console.log('User fount ----------->', isExist);
+      if (isExist) return res.send(isExist);
+      const result = await usersCollection.updateOne(
+        query,
+        {
+          $set: { ...user, timestamp: Date.now() },
+        },
+        options
+      );
+      res.send(result);
+    });
+
     await client.connect();
-    
+
     await client.db("admin").command({ ping: 1 });
-    console.log("Pinged your deployment. You successfully connected to MongoDB!");
+    console.log(
+      "Pinged your deployment. You successfully connected to MongoDB!"
+    );
   } finally {
-    
     // await client.close();
   }
 }
