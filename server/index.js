@@ -51,6 +51,35 @@ const client = new MongoClient(process.env.DB_URI, {
 async function run() {
   try {
     const usersCollection = client.db('StayVistaProject').collection('stayVista');
+
+    // auth related api
+
+    app.post('/jwt', async (req, res) => {
+      try {
+        // get users from body
+        const user = req.body;
+        console.log('I am a jwt', user);
+
+        //generate a jwt token with secure and expiration time
+        const token = jwt.sign(user, process.env.ACCESS_TOKEN_SECRET, {
+          expiresIn: "365d",
+        })
+
+        // set token in http only cookie
+        res.cookie('token', token, {
+          httpOnly: true,
+          secure: process.env.NODE_ENV === 'production',
+          sameSite: process.env.NODE_ENV === 'production' ? 'none' : 'strict',
+          maxAge: 365 * 24 * 60 * 60 * 1000,
+        })
+        // now sent success response
+        res.status(200).send({ message: "JWT created successfully" });
+        
+      } catch (error) {
+        console.error('JWT generation failed', error);
+        res.status(500).send({ message: "JWT generation failed" });
+      }
+    })
     
     app.put("/users/:email", async (req, res) => {
       const email = req.body.email;

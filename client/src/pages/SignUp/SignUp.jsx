@@ -1,9 +1,10 @@
 /* eslint-disable no-unused-vars */
 import { useState } from "react";
+import { toast } from 'react-hot-toast';
 import { FcGoogle } from "react-icons/fc";
 import { TbFidgetSpinner } from "react-icons/tb";
-import { Link } from "react-router-dom";
-import { saveUser } from "../../api/auth";
+import { Link, useNavigate } from "react-router-dom";
+import { getToken, saveUser } from "../../api/auth";
 import { imageUpload } from '../../api/utils';
 import img from '../../assets/images/placeholder.jpg';
 import useAuth from "../../hooks/useAuth";
@@ -11,6 +12,7 @@ import useAuth from "../../hooks/useAuth";
 const SignUp = () => {
   const { createUser, updateUserProfile, loading } = useAuth();
   const [imageData, setImageData] = useState({});
+  const navigate = useNavigate();
 
   // form submit handler
   const handleSubmit = async (event) => {
@@ -35,17 +37,25 @@ const SignUp = () => {
     // 3. update user name and profile photo
     await updateUserProfile(name, imageData?.data?.display_url);
 
-    console.log(result)
+    // console.log(result)
 
 
     // 4. save user profile in database
     const dbResponse = await saveUser(result.user);
     console.log(dbResponse)
 
+    // 5. get token from user login
+
+    await getToken(result?.user?.email)
+    navigate('/');
+    toast.success('User created successfully!',);
+ 
+    
 
 
    } catch (err) {
     console.log(err)
+    toast.error(err.message);
    }
 
 
